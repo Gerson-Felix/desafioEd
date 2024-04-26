@@ -5,9 +5,12 @@
 const http = require('http');
 const debug = require('debug')('nodestr:server');
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
 
-//Importação da Rota
+//Importações
 const routes = require('./routes');
+const swaggerJson = require('./src/swagger.json');
+
 
 //Criação da app e definição da porta
 const app = express();
@@ -16,6 +19,9 @@ app.set('port', port);
 
 //Execução da Rota
 app.use(routes);
+
+//Documentação da API
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJson));
 
 //Criação do Servidor
 const server = http.createServer(app);

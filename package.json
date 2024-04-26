@@ -12,6 +12,7 @@
   "dependencies": {
     "debug": "^4.3.4",
     "express": "^4.19.2",
-    "http": "^0.0.1-security"
+    "http": "^0.0.1-security",
+    "swagger-ui-express": "^5.0.0"
   }
 }

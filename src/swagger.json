@@ -1,0 +1,19 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Configuração",
+        "description": "Essa API tem como objectivo configurar a documentação com o Swagger",
+        "contact": {
+            "email": "gerson.01@outlook.pt"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "summary": "Rota base",
+                "description": "Primeira Rota de Definição"
+            }
+        }
+    }
+}
