@@ -11,7 +11,7 @@
     "paths": {
         "/": {
             "get": {
-                "summary": "Rota base",
+                "summary": "Rota Base",
                 "description": "Primeira Rota de Definição"
             }
         }

@@ -30,4 +30,3 @@ const server = http.createServer(app);
 app.use('/', routes);
 
 server.listen(port);
-console.log("Porta da app " + port);

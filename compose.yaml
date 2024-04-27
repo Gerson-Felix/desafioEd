@@ -1,0 +1,10 @@
+services:
+  app:
+    build: .
+    command: npm start
+    ports:
+      - "3000:3000"
+    develop:
+      watch:
+        - action: rebuild
+          path: .
