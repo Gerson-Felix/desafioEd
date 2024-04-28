@@ -1,24 +1,35 @@
 //Definição da Rigorozidade da escrita do código
 'use strict'
+require('dotenv').config();
 
 //Set das Instâncias 
 const http = require('http');
 const debug = require('debug')('nodestr:server');
+
+//#
 const express = require('express');
+//Criação da app
+const app = express();
+//#
+
 const swaggerUi = require('swagger-ui-express');
+//BD
+const mongoose = require('mongoose');
+mongoose.connect(process.env.CONNECTIONSTRING).then(() => {
+    console.log('Conexão Estabelecida');
+}).catch(e => console.log(e));
 
 //Importações
-const routes = require('./routes');
+const escolaRoute = require('./src/routes/escolaRoute');
 const swaggerJson = require('./src/swagger.json');
 
 
-//Criação da app e definição da porta
-const app = express();
+//Definição da porta
 const port = 3000;
 app.set('port', port);
 
 //Execução da Rota
-app.use(routes);
+app.use(escolaRoute);
 
 //Documentação da API
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJson));
@@ -27,6 +38,6 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJson));
 const server = http.createServer(app);
 
 //Execução da app
-app.use('/', routes);
+app.use('/', escolaRoute);
 
 server.listen(port);
