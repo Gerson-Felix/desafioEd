@@ -8,11 +8,37 @@
         },
         "version": "1.0.0"
     },
+    "tags": [
+        {
+            "name": "Escolas",
+            "description": "Desafio do Back-End das Escolas"
+        }
+    ],
     "paths": {
         "/": {
             "get": {
-                "summary": "Rota Base",
-                "description": "Primeira Rota de Definição"
+                "summary": "Listar todas Escolas",
+                "description": "Carrega todas escolas cadastradas"
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Escola": {
+                "type": "object",
+                "properties": {
+                    "nome": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "numSalas": {
+                        "type": "number"
+                    },
+                    "provincia": {}
+                },
+                "required": ["nome", "email", "numSalas", "provincia"]
             }
         }
     }

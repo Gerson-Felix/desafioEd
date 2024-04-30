@@ -8,6 +8,7 @@ const debug = require('debug')('nodestr:server');
 
 //#
 const express = require('express');
+
 //Criação da app
 const app = express();
 //#
@@ -39,5 +40,6 @@ const server = http.createServer(app);
 
 //Execução da app
 app.use('/', escolaRoute);
+app.use('/provincias', escolaRoute);
 
 server.listen(port);
