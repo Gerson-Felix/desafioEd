@@ -5,13 +5,16 @@ require('dotenv').config();
 //Set das Instâncias 
 const http = require('http');
 const debug = require('debug')('nodestr:server');
-
+const bodyParser = require('body-parser');
 //#
 const express = require('express');
 
 //Criação da app
 const app = express();
 //#
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const swaggerUi = require('swagger-ui-express');
 //BD
@@ -39,7 +42,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerJson));
 const server = http.createServer(app);
 
 //Execução da app
-app.use('/', escolaRoute);
+app.use('/escola', bodyParser.json(), escolaRoute);
 app.use('/provincias', escolaRoute);
 
 server.listen(port);
