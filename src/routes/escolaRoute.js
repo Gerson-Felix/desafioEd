@@ -109,7 +109,7 @@ router.patch('/escola/:id', async (req, res) => {
         const id = await idProvincia(req.body.provincia);
 
         if(isEmpty(id)) {
-            res.status(400).json({ message: "Por favor digite a Província da forma certa" });
+            res.status(401).json({ message: "Por favor digite a Província da forma certa" });
         } else {
             escola[0].nome = req.body.nome;
             escola[0].email = req.body.email;

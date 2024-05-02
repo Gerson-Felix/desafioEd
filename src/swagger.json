@@ -25,13 +25,8 @@
                 "produces": ["application/json"],
                 "responses": {
                     "200": {
-                        "description": "Todas as Provincias",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
+                        "schema": {
+                            "$ref":"#/definitions/Provincias"
                         }
                     },
                     "400": {
@@ -57,7 +52,7 @@
                 "responses": {
                     "200": {
                         "schema": {
-                            "type":"object"
+                            "$ref":"#/definitions/Provincias"
                         }
                     },
                     "400": {
@@ -80,50 +75,152 @@
                         "description": "Nenhuma escola Listada"
                     },
                     "200": {
-                        "description": "Todas as Escolas",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "type": "object"
-                                }
-                            }
+                        "schema": {
+                            "$ref":"#/definitions/Escola"
                         }
                     }
                 }
             },
             "post": {
-                "description": "Inserção da escola atravéz de parâmetros",
+                "description": "Cria a escola através de parâmetros",
                 "tags": ["escola"],
                 "consumes": ["application/json"],
+                "produces":["application/json"],
                 "parameters": [{
                     "in": "body",
                     "name": "body",
                     "description": "Parametros da Escola",
                     "required": "true",
                     "schema": {
-                        "$ref": "#/components/schemas/Escola"
+                        "$ref": "#/definitions/Escola"
                     }
-                }]
+                }],
+                "responses": {
+                    "400": {
+                        "description": "Por favor digite a Província da forma certa" 
+                    },
+                    "200": {
+                        "schema": {
+                            "$ref":"#/definitions/Escola"
+                        }
+                    }
+                }
+            }
+        },
+        "/escola/{id}": {
+            "get":{
+                "description":"Buscar escola por ID",
+                "tags":["escola"],
+                "produces":["application/json"],
+                "parameters":[{
+                    "name":"id",
+                    "in":"path",
+                    "description":"Retorna escola por ID",
+                    "required":"true",
+                    "type":"string"
+                }],
+                "responses":{
+                    "400":{
+                        "description":"Nenhuma escola Listada."
+                    },
+                    "200":{
+                        "schema":{
+                            "$ref":"#/definitions/Escola"
+                        }
+                    },
+                    "500":{
+                        "description":"Erro do Servidor"
+                    }
+                }
+            },
+            "patch": {
+                "description":"Actualização da Escola",
+                "tags":["escola"],
+                "parameters":
+                [
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"Retorna escola por ID",
+                        "required":"true",
+                        "type":"string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "Parametros da Escola",
+                        "required": "true",
+                        "schema": {
+                        "$ref": "#/definitions/Escola"
+                        }
+                    }
+                ],
+                "responses":{
+                    "400":{
+                        "description":"Preencha os campos nome, email, número de salas e província da escola"
+                    },
+                    "401":{
+                        "description":"Por favor digite a Província da forma certa"
+                    },
+                    "200":{
+                        "schema":{
+                            "$ref":"#/definitions/Escola"
+                        }
+                    }
+                }
+            },
+            "delete":{
+                "description":"Deletar escola por ID",
+                "tags":["escola"],
+                "parameters":[
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description":"Retorna escola por ID",
+                        "required":"true",
+                        "type":"string"
+                    }
+                ],
+                "responses":{
+                    "404":{
+                        "description":"Escola não encontrada"
+                    },
+                    "200":{
+                        "description":"Escola deletada"
+                    }
+                }
             }
         }
     },
-    "components": {
-        "schemas": {
-            "Escola": {
-                "type": "object",
-                "properties": {
-                    "nome": {
-                        "type": "string"
-                    },
-                    "email": {
-                        "type": "string"
-                    },
-                    "numSalas": {
-                        "type": "number"
-                    },
-                    "provincia": "string"
+    "definitions": {
+        "Provincias":{
+            "type":"object",
+            "properties":{
+                "id":{
+                    "type":"string"
+                },
+                "nome":{
+                    "type":"string"
                 }
             }
+        },
+        "Escola": {
+            "type": "object",
+            "properties": {
+                "nome": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "numSalas": {
+                    "type": "number"
+                },
+                "provincia": {
+                    "type": "string"
+                }
+            },
+            "required": ["nome", "email", "numSalas", "provincia"]
         }
     }
 }
