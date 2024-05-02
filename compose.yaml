@@ -28,8 +28,3 @@ services:
       - .:/usr/app
     depends_on:
       - mongo
-    # O watch está desabilitado porque não carrega os ficheiros localmente somente no servidor
-    # develop:
-    #   watch:
-    #     - action: rebuild
-    #       path: .

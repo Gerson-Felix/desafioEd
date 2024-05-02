@@ -42,23 +42,6 @@ async function mostrarEscola(escolas) {
     return escola;
 }
 
-//Consultar apenas uma escola específica
-router.get('/escola/:id', async (req, res) => {
-    try {
-        const escolas = await Escola.find({ _id: req.params.id});
-        const escola = await mostrarEscola(escolas);
-         
-        if (isEmpty(escola)) {
-            res.status(400).json({ info: "Nenhuma escola Listada." });    
-        } else {
-            res.status(200).json(escola);
-        }
-
-    } catch (error) {
-        res.status(500).json({ message: "error.message" })
-    }
-});
-
 //Cosultar todas as escolas
 router.get('/escola', async (req, res) => {
     try {
@@ -66,13 +49,13 @@ router.get('/escola', async (req, res) => {
         const escola = await mostrarEscola(escolas);
          
         if (isEmpty(escola)) {
-            res.status(400).json({ info: "Nenhuma escola Listada. Preencha os campos nome, email, número de salas e província da escola ou Carrega um ficheiro excel com os dados preenchidos na ordem nome, email, número de salas e província da escola usando o POST" });    
+            res.status(400).json({ info: "Nenhuma escola Listada" });    
         } else {
             res.status(200).json(escola);
         }
 
     } catch (error) {
-        res.status(500).json({ message: "error.message" })
+        res.status(500).json({ message: "error.message" });
     }
 });
 
@@ -96,6 +79,23 @@ router.post('/escola', async (req, res) => {
         } catch (error) {
             res.status(500).json({ message: error });
         }
+    }
+});
+
+//Consultar apenas uma escola específica
+router.get('/escola/:id', async (req, res) => {
+    try {
+        const escolas = await Escola.find({ _id: req.params.id});
+        const escola = await mostrarEscola(escolas);
+         
+        if (isEmpty(escola)) {
+            res.status(400).json({ info: "Nenhuma escola Listada." });    
+        } else {
+            res.status(200).json(escola);
+        }
+
+    } catch (error) {
+        res.status(500).json({ message: "error.message" });
     }
 });
 

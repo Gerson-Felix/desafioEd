@@ -1,5 +1,5 @@
 {
-    "openapi": "3.0.0",
+    "swagger": "2.0",
     "info": {
         "title": "API de Configuração",
         "description": "Essa API tem como objectivo configurar a documentação com o Swagger",
@@ -10,15 +10,100 @@
     },
     "tags": [
         {
-            "name": "Escolas",
-            "description": "Desafio do Back-End das Escolas"
+            "name": "provincias"
+        },
+        {
+            "name": "escola"
         }
     ],
     "paths": {
-        "/": {
+        "/provincias": {
             "get": {
-                "summary": "Listar todas Escolas",
-                "description": "Carrega todas escolas cadastradas"
+                "description": "Retorna as Provincias",
+                "tags": ["provincias"],
+                "parameters": [],
+                "produces": ["application/json"],
+                "responses": {
+                    "200": {
+                        "description": "Todas as Provincias",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Nenhuma província Listada. Carrega o ficheiro JSON das províncias usando o POST"
+                    },
+                    "500": {
+                        "description": "Erro do Servidor"
+                    }
+                }
+            },
+            "post": {
+                "description": "Carrega o JSON das Provincias",
+                "tags": ["provincias"],
+                "consumes": ["multipart/form-data"],
+                "parameters":[
+                    {
+                        "in": "formData",
+                        "name": "file",
+                        "type": "file",
+                        "description": "JSON das provincias"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type":"object"
+                        }
+                    },
+                    "400": {
+                        "description": "Nenhuma província Listada. Carrega o ficheiro JSON das províncias usando o POST"
+                    },
+                    "500": {
+                        "description": "Erro do Servidor"
+                    }
+                }
+            }
+        },
+        "/escola": {
+            "get": {
+                "description": "Retorna todas Escolas",
+                "tags": ["escola"],
+                "parameters": [],
+                "produces": ["application/json"],
+                "responses": {
+                    "400": {
+                        "description": "Nenhuma escola Listada"
+                    },
+                    "200": {
+                        "description": "Todas as Escolas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Inserção da escola atravéz de parâmetros",
+                "tags": ["escola"],
+                "consumes": ["application/json"],
+                "parameters": [{
+                    "in": "body",
+                    "name": "body",
+                    "description": "Parametros da Escola",
+                    "required": "true",
+                    "schema": {
+                        "$ref": "#/components/schemas/Escola"
+                    }
+                }]
             }
         }
     },
@@ -36,9 +121,8 @@
                     "numSalas": {
                         "type": "number"
                     },
-                    "provincia": {}
-                },
-                "required": ["nome", "email", "numSalas", "provincia"]
+                    "provincia": "string"
+                }
             }
         }
     }

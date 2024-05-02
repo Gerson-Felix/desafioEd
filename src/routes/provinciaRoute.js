@@ -61,15 +61,28 @@ async function createProvince(jsonUploadPath) {
 
     return allProvincias;
 }
+//Rescrever as provincias
+function mostrarProvincias(provincias) {
+    const provincia = [provincias.length];
+
+    for (let i = 0; i < provincias.length; i++) {
+        provincia[i] = {
+            id: provincias[i]._id,
+            nome: provincias[i].nome
+        };
+    }
+    return provincia;
+}
 
 //Pesquisar se existe Províncias
 router.get('/provincias', async (req, res) => {
     try {
         const provincias = await Provincia.find();
-        if (provincias.length !== 0){
-            res.status(200).json(provincias);
+        const provincia = mostrarProvincias(provincias);
+        if (_.isEmpty(provincia)){
+            res.status(400).json({ info: "Nenhuma província Listada. Carrega o ficheiro JSON das províncias usando o POST"});
         } else {
-            res.status(500).json({ info: "Nenhuma província Listada. Carrega o ficheiro JSON das províncias usando o POST"});
+            res.status(200).json(provincia);
         }
     } catch (error) {
         res.status(500).json({ message: error.message});
