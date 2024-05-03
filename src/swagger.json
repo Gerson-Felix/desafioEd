@@ -190,6 +190,34 @@
                     }
                 }
             }
+        },
+        "/escola/excel":{
+            "post": {
+                "description": "Carrega o EXCEL com as Escolas",
+                "tags": ["escola"],
+                "consumes": ["multipart/form-data"],
+                "parameters":[
+                    {
+                        "in": "formData",
+                        "name": "file",
+                        "type": "file",
+                        "description": "O EXCEL deve ter as colunas na ordem Nome, Email, Número de Salas, Província"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Nenhum EXCEL carregado"
+                    },
+                    "401": {
+                        "description": "Erro de Escrita da Província no EXCEL. Esse erro poe a App em cashed."
+                    },
+                    "200": {
+                        "schema":{
+                            "$ref":"#/definitions/Escola"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
