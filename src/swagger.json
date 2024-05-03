@@ -215,6 +215,9 @@
                         "schema":{
                             "$ref":"#/definitions/Escola"
                         }
+                    },
+                    "402": {
+                        "description": "Copie e cole esse cabaçalho ao seu Excel para cada campo. Nome, Email, Número de Salas, Província"
                     }
                 }
             }

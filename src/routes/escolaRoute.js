@@ -134,7 +134,7 @@ router.post('/escola/excel', upload.single('file'), async (req, res) => {
                 }
             }
         } else {
-            res.status(400).json({ info: "Copie e cole esse cabaçalho ao seu Excel para cada campo. Nome, Email, Número de Salas, Província" });
+            res.status(402).json({ info: "Copie e cole esse cabaçalho ao seu Excel para cada campo. Nome, Email, Número de Salas, Província" });
         }
 
         const cadastroDinamicoEscolas = [];
